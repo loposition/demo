@@ -17,8 +17,8 @@
     <dubbo:reference interface="com.demo.ysz.dubbo.api.HelloService" id="helloService"
                      group="xmlConfig"/>
 
-    <dubbo:reference interface="com.duitang.service.biz.IShortUrlService" id="shortUrlService"
-                     group="carl.yu-mandala" version="1.0"/>
+   <!-- <dubbo:reference interface="com.duitang.service.biz.IShortUrlService" id="shortUrlService"
+                     group="carl.yu-mandala" version="1.0"/>-->
 
     <!-- directly connect to provider to simulate the access to non-dubbo rest services -->
     <!--<dubbo:reference id="anotherUserRestService" interface="com.alibaba.dubbo.demo.user.facade.AnotherUserRestService" url="rest://localhost:8888/services/"/>-->
