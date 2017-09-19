@@ -77,4 +77,45 @@
 
     </dependencies>
 
+
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <url>http://maven.dev.duitang.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring</id>
+            <url>http://repo.spring.io/libs-release</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <url>http://maven.dev.duitang.com/nexus/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    <distributionManagement>
+        <repository>
+            <id>duitang-deployment</id>
+            <name>Internal Releases</name>
+            <url>http://maven.dev.duitang.com/nexus/content/repositories/thirdparty/</url>
+        </repository>
+        <snapshotRepository>
+            <id>duitang-deployment</id>
+            <name>Internal Snapshot</name>
+            <url>http://maven.dev.duitang.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

@@ -20,11 +20,11 @@ public class HelloDubboClient {
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(configPath.split("[,\\s]+"));
     context.start();
     System.err.println("consumer start ....");
-    HelloService helloService = context.getBean(HelloService.class);
-    helloService.add(1,2);
-//    IShortUrlService shortUrlService = context.getBean(IShortUrlService.class);
-//    ShortUrlResult huahua = shortUrlService.addShortUrlByDefaultLength("http://localhost:8080.zzz/a.tsgfdg", "huahua");
-//    System.err.println("111:"+huahua);
+//    HelloService helloService = context.getBean(HelloService.class);
+//    helloService.add(1,2);
+    IShortUrlService shortUrlService = context.getBean(IShortUrlService.class);
+    ShortUrlResult huahua = shortUrlService.addShortUrlByDefaultLength("http://localhost:8080.zzz/a.tsgfdg", "huahua");
+    System.err.println("111:"+huahua);
 //    System.in.read();
   }
 }
