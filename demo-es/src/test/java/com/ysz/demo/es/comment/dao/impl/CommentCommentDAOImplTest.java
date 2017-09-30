@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <B>描述：</B><br/>
@@ -97,6 +98,11 @@ public class CommentCommentDAOImplTest {
     System.err.println("ok");
   }
 
+  @Test
+  public void shouldCountGroupBySenderId() throws Exception {
+    Map<Long, Long> groupBySenderIdMap = commentCommentDAO.countGroupBySenderId();
+    System.err.println(groupBySenderIdMap);
+  }
 
   @Test
   public void shouldBulkIndex() throws Exception {

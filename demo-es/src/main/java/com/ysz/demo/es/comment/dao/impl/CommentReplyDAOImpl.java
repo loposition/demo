@@ -15,10 +15,13 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.join.query.JoinQueryBuilders;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+
+import java.util.Map;
 
 /**
  * <B>描述：</B><br/>
@@ -47,6 +50,7 @@ public class CommentReplyDAOImpl implements CommentReplyDAO {
       throw new DaoException("save commentComment failed", e);
     }
   }
+
 
   @Override
   public Integer countReplyByCommentId(String commentId) {
@@ -77,7 +81,5 @@ public class CommentReplyDAOImpl implements CommentReplyDAO {
         return true;
       });
     }
-
-
   }
 }

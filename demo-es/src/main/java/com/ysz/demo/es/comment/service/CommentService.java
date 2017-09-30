@@ -1,5 +1,7 @@
 package com.ysz.demo.es.comment.service;
 
+import java.util.Map;
+
 /**
  * <B>描述：</B><br/>
  * <B>作者：</B> carl.yu <br/>
@@ -22,4 +24,5 @@ public interface CommentService {
   Integer countReply(String commentId);
 
   Integer countLike(String commentId);
+
 }

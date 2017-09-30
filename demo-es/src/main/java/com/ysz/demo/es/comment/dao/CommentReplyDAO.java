@@ -2,6 +2,8 @@ package com.ysz.demo.es.comment.dao;
 
 import com.ysz.demo.es.comment.dao.dataobject.CommentReplyDO;
 
+import java.util.Map;
+
 /**
  * <B>描述：</B><br/>
  * <B>作者：</B> carl.yu <br/>
@@ -13,4 +15,6 @@ public interface CommentReplyDAO {
   String save(CommentReplyDO commentReplyDO);
 
   Integer countReplyByCommentId(String commentId);
+
+
 }
