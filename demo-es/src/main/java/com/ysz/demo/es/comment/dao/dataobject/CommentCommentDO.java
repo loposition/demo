@@ -32,10 +32,6 @@ public class CommentCommentDO {
 
   private String contentBody;
 
-  private Integer likeCount;
-
-  private Integer replyCount;
-
   private Integer priority;
 
   private Date gmtCreate;

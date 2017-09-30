@@ -3,6 +3,7 @@ package com.ysz.demo.es.comment.dao.impl;
 import com.alibaba.fastjson.JSON;
 import com.ysz.demo.es.base.DaoException;
 import com.ysz.demo.es.comment.dao.CommentCommentDAO;
+import com.ysz.demo.es.comment.dao.constants.CommentEsConstant;
 import com.ysz.demo.es.comment.dao.dataobject.CommentCommentDO;
 
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
@@ -27,16 +28,13 @@ import java.util.List;
 @Repository
 public class CommentCommentDAOImpl implements CommentCommentDAO {
 
-  private static final String ES_COMMENT_INDEX = "comment";
-  private static final String ES_COMMENT_COMMENT_TYPE = "commentComment";
-
   @Resource
   private TransportClient transportClient;
 
   @Override
   public String save(CommentCommentDO commentComment) {
     try {
-      IndexResponse response = transportClient.prepareIndex(ES_COMMENT_INDEX, ES_COMMENT_COMMENT_TYPE)
+      IndexResponse response = transportClient.prepareIndex(CommentEsConstant.ES_COMMENT_INDEX, CommentEsConstant.ES_COMMENT_COMMENT_TYPE)
           .setSource(Mapper.toJsonStr(commentComment), XContentType.JSON)
           .get();
       return response.getId();
@@ -51,7 +49,7 @@ public class CommentCommentDAOImpl implements CommentCommentDAO {
       BulkRequestBuilder bulkRequestBuilder = transportClient.prepareBulk();
       for (CommentCommentDO commentCommentDO : commentCommentList) {
         if (commentCommentDO != null) {
-          bulkRequestBuilder.add(new IndexRequest(ES_COMMENT_INDEX, ES_COMMENT_COMMENT_TYPE).source
+          bulkRequestBuilder.add(new IndexRequest(CommentEsConstant.ES_COMMENT_INDEX, CommentEsConstant.ES_COMMENT_COMMENT_TYPE).source
               (Mapper.toJsonStr
                       (commentCommentDO),
                   XContentType.JSON));
@@ -67,7 +65,7 @@ public class CommentCommentDAOImpl implements CommentCommentDAO {
   @Override
   public CommentCommentDO findById(String id) {
     try {
-      GetResponse getResponse = transportClient.prepareGet(ES_COMMENT_INDEX, ES_COMMENT_COMMENT_TYPE, id).get();
+      GetResponse getResponse = transportClient.prepareGet(CommentEsConstant.ES_COMMENT_INDEX, CommentEsConstant.ES_COMMENT_COMMENT_TYPE, id).get();
       return Mapper.toCommentCommentDO(getResponse);
     } catch (Exception e) {
       throw new DaoException("find by id failed", e);

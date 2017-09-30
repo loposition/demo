@@ -11,4 +11,6 @@ import com.ysz.demo.es.comment.dao.dataobject.CommentReplyDO;
 public interface CommentReplyDAO {
 
   String save(CommentReplyDO commentReplyDO);
+
+  Integer countReplyByCommentId(String commentId);
 }

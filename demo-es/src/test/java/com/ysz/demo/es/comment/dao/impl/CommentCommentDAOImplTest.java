@@ -86,8 +86,6 @@ public class CommentCommentDAOImplTest {
     commentCommentDO.setGmtCreate(new Date());
     commentCommentDO.setGmtUpdate(new Date());
     commentCommentDO.setPriority(1);
-    commentCommentDO.setLikeCount(10);
-    commentCommentDO.setReplyCount(10);
     commentCommentDO.setSenderId(10000L);
     commentCommentDO.setReferId(1L);
     commentCommentDO.setReferType((byte) 1);
@@ -132,8 +130,6 @@ public class CommentCommentDAOImplTest {
       commentCommentDO.setGmtCreate(format.parse(dates[i % dates.length]));
       commentCommentDO.setGmtUpdate(format.parse(dates[i % dates.length]));
       commentCommentDO.setPriority(1);
-      commentCommentDO.setLikeCount(i);
-      commentCommentDO.setReplyCount(i);
       commentCommentDO.setSenderId(sendIds[i % sendIds.length]);
       commentCommentDO.setReferId((long) i);
       commentCommentDO.setReferType((byte) (i % 3));

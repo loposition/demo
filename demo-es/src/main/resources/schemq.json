@@ -16,12 +16,6 @@ PUT comment
           "type": "text",
           "analyzer": "ik_max_word"
         },
-        "likeCount": {
-          "type": "integer"
-        },
-        "replyCount": {
-          "type": "integer"
-        },
         "priority": {
           "type": "integer"
         },

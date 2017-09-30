@@ -1,16 +1,21 @@
 package com.ysz.demo.es.comment.dao.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.JSONSerializer;
 import com.alibaba.fastjson.serializer.PropertyPreFilter;
 import com.google.common.collect.ImmutableSet;
 import com.ysz.demo.es.base.DaoException;
 import com.ysz.demo.es.comment.dao.CommentReplyDAO;
+import com.ysz.demo.es.comment.dao.constants.CommentEsConstant;
 import com.ysz.demo.es.comment.dao.dataobject.CommentReplyDO;
 
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.join.query.JoinQueryBuilders;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -24,8 +29,6 @@ import javax.annotation.Resource;
 @Repository
 public class CommentReplyDAOImpl implements CommentReplyDAO {
 
-  private static final String ES_INDEX = "comment";
-  private static final String ES_TYPE = "commentReply";
 
   @Resource
   private TransportClient transportClient;
@@ -34,7 +37,8 @@ public class CommentReplyDAOImpl implements CommentReplyDAO {
   @Override
   public String save(CommentReplyDO commentReplyDO) {
     try {
-      IndexResponse response = transportClient.prepareIndex(ES_INDEX, ES_TYPE)
+      IndexResponse response = transportClient.prepareIndex(CommentEsConstant.ES_COMMENT_INDEX,
+          CommentEsConstant.ES_COMMENT_REPLY_TYPE)
           .setSource(Mapper.toJsonStr(commentReplyDO), XContentType.JSON)
           .setParent(commentReplyDO.getCommentId())
           .get();
@@ -44,20 +48,33 @@ public class CommentReplyDAOImpl implements CommentReplyDAO {
     }
   }
 
+  @Override
+  public Integer countReplyByCommentId(String commentId) {
+    SearchResponse searchResponse = transportClient
+        .prepareSearch(CommentEsConstant.ES_COMMENT_INDEX)
+        .setTypes(CommentEsConstant.ES_COMMENT_REPLY_TYPE)
+        .setSource(new SearchSourceBuilder()
+            .size(0)
+            .query(JoinQueryBuilders
+                .hasParentQuery(CommentEsConstant.ES_COMMENT_COMMENT_TYPE,
+                    QueryBuilders.termQuery("_id", commentId),
+                    false)))
+        .get();
+    SearchHits hits = searchResponse.getHits();
+    return hits == null ? 0 : (int) hits.getTotalHits();
+  }
+
   private static class Mapper {
 
     private static final ImmutableSet<String> ignoreProperties = ImmutableSet.of("id", "commentId");
 
     private static String toJsonStr(CommentReplyDO src) {
-      return src == null ? null : JSON.toJSONString(src, new PropertyPreFilter() {
-        @Override
-        public boolean apply(JSONSerializer serializer, Object object, String name) {
-          System.err.println("name:" + name);
-          if (name != null && ignoreProperties.contains(name.toLowerCase())) {
-            return false;
-          }
-          return true;
+      return src == null ? null : JSON.toJSONString(src, (PropertyPreFilter) (serializer, object, name) -> {
+        System.err.println("name:" + name);
+        if (name != null && ignoreProperties.contains(name.toLowerCase())) {
+          return false;
         }
+        return true;
       });
     }
 
