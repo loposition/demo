@@ -1,11 +1,8 @@
 package com.ysz.demo.dubbo.client;
 
-import com.duitang.result.ShortUrlResult;
-import com.duitang.service.biz.IShortUrlService;
 
-import com.demo.ysz.dubbo.api.HelloService;
-
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <B>描述：</B><br/>
@@ -14,17 +11,25 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * <B>版本：</B><br/>
  */
 public class HelloDubboClient {
+  private static final String[] productionIPRanges = new String[]{"^192\\.168\\.172\\.(1[2-9]|[2-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-4]))$", "^10\\.0|1\\.1\\.([1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))$", "^10\\.0|1\\.2\\.([1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))$", "^10\\.0|1\\.3\\.([1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))$"};
+
+  public static boolean isProduction(String ip) {
+    String[] arr$ = productionIPRanges;
+    int len$ = arr$.length;
+
+    for(int i$ = 0; i$ < len$; ++i$) {
+      String ipr = arr$[i$];
+      Pattern r = Pattern.compile(ipr);
+      Matcher m = r.matcher(ip);
+      if(m.find()) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   public static void main(String[] args) throws Exception {
-    String configPath = "classpath:dubbo-demo-consumer.xml";
-    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(configPath.split("[,\\s]+"));
-    context.start();
-    System.err.println("consumer start ....");
-//    HelloService helloService = context.getBean(HelloService.class);
-//    helloService.add(1,2);
-    IShortUrlService shortUrlService = context.getBean(IShortUrlService.class);
-    ShortUrlResult huahua = shortUrlService.addShortUrlByDefaultLength("http://localhost:8080.zzz/a.tsgfdg", "huahua");
-    System.err.println("111:"+huahua);
-//    System.in.read();
+    System.err.println(isProduction("10.1.1.84"));
   }
 }

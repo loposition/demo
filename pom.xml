@@ -16,6 +16,14 @@
         <module>demo-dubbo</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <id>spring-libs-snapshot</id>
+            <name>Spring Snapshot Repository</name>
+            <url>http://repo.spring.io/libs-snapshot</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>

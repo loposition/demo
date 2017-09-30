@@ -1,0 +1,61 @@
+PUT comment
+{
+  "mappings": {
+    "commentComment": {
+      "properties": {
+        "senderId": {
+          "type": "long"
+        },
+        "referId": {
+          "type": "long"
+        },
+        "referType": {
+          "type": "byte"
+        },
+        "contentBody": {
+          "type": "text",
+          "analyzer": "ik_max_word"
+        },
+        "likeCount": {
+          "type": "integer"
+        },
+        "replyCount": {
+          "type": "integer"
+        },
+        "priority": {
+          "type": "integer"
+        },
+        "gmtDate": {
+          "type": "date"
+        },
+        "gmtUpdate": {
+          "type": "date"
+        }
+      }
+    },
+    "commentReply": {
+      "_parent": {
+        "type": "commentComment"
+      },
+      "properties": {
+        "fromUserId": {
+          "type": "long"
+        },
+        "toUserId": {
+          "type": "long"
+        },
+        "contentBody": {
+          "type": "text",
+          "analyzer": "ik_max_word"
+        },
+        "gmtUpdate": {
+          "type": "date"
+        },
+        "gmtCreate": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
+

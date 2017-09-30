@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--monitorInterval属性指定的配置元素和设置为非零值那么下次将要检查文件日志事件评估和/或记录和monitorInterval运行自上次检查。
+下面的例子展示了如何配置配置文件属性,以便将检查变化只有在至少60秒后运行。最小间隔5秒。-->
+<Configuration status="WARN" monitorInterval="60">
+
+    <properties>
+        <property name="LOG_HOME">${sys:user.home}/logs/log4j2/log4j2/</property>
+    </properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <!--滚动日志-->
+    <Appenders>
+        <RollingFile name="RollingFileAppender" fileName="logs/base.log"
+                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d [%t] %p %c - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+
+
+    <Loggers>
+        <Root level="INFO">
+            <!--<AppenderRef ref="Console"/>-->
+            <AppenderRef ref="RollingFileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
