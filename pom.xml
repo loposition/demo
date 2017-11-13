@@ -17,6 +17,9 @@
         <module>demo-metrics</module>
         <module>demo-oss</module>
         <module>demo-hystrix</module>
+        <module>demo-cloud</module>
+        <module>demo-netty</module>
+        <module>demo-spring</module>
     </modules>
 
     <repositories>

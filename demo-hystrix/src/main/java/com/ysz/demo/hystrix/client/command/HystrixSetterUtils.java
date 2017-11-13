@@ -1,5 +1,7 @@
 package com.ysz.demo.hystrix.client.command;
 
+import com.netflix.hystrix.HystrixCommand;
+
 /**
  * <B>描述：</B><br/>
  * <B>作者：</B> carl.yu <br/>
@@ -8,5 +10,7 @@ package com.ysz.demo.hystrix.client.command;
  */
 public class HystrixSetterUtils {
 
-  
+  public static HystrixCommand.Setter setter() {
+    return null;
+  }
 }

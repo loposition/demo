@@ -16,9 +16,10 @@ public class SaturnServiceImpl implements SaturnService {
 
   @RequestMapping("/get/")
   @Override
+  @Deprecated
   public String get() {
     try {
-      Thread.sleep(1000L);
+      Thread.sleep(500L);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }

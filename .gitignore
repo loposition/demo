@@ -1,3 +1,5 @@
 *.iml
 *.idea
 */target
+
+/Users/carl.yu/IdeaProjects/src_code/demo/demo-jdk8/src/main/resources/logs/gc.log
