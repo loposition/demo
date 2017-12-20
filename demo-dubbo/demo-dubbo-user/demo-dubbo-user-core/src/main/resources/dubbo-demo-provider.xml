@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="user-provider" owner="programmer" organization="dubbox"/>
+
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+
+
+    <dubbo:protocol name="dubbo" serialization="fastjson"/>
+
+    <bean id="userApi" class="com.dubbo.user.core.UserApiImpl"/>
+    <dubbo:service interface="com.dubbo.user.api.UserApi" protocol="dubbo" ref="userApi"
+            filter="traceProviderFilter"       />
+    <!--  <bean id="brave" class="com.github.kristofa.brave.dubbo.BraveFactoryBean">
+          <property name="serviceName" value="serviceName"/>
+          <property name="zipkinHost" value="http://localhost:9411/"/>
+          <property name="rate" value="1.0"/>
+      </bean>-->
+</beans>

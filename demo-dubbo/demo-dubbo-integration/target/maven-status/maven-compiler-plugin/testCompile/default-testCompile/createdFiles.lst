@@ -1,0 +1,6 @@
+config/DemoService.class
+config/DemoConfig.class
+config/Config.class
+config/DemoServiceImpl.class
+config/DemoClient.class
+config/AnotherDemoServiceImpl.class

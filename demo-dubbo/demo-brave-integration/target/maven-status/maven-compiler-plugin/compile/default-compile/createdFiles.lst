@@ -1,0 +1,9 @@
+com/demo/brave/DubboClientAdapter.class
+com/demo/brave/DubboAdapter.class
+com/demo/brave/DubboClientRequestAdapter.class
+com/demo/brave/BraveDubboConfiguration.class
+com/demo/brave/DubboBraveConsumFilter.class
+com/demo/brave/BeanUtils.class
+com/demo/brave/Service.class
+com/demo/brave/DubboClientHandler.class
+com/demo/brave/DubboClientParser.class

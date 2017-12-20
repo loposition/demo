@@ -91,6 +91,11 @@ public class TransportClientFactoryBean implements FactoryBean<TransportClient>,
   }
 
   @Override
+  public boolean isSingleton() {
+    return false;
+  }
+
+  @Override
   public Class<?> getObjectType() {
     return TransportClient.class;
   }
