@@ -16,8 +16,11 @@ public class DubboClientParser extends AbstractParser {
    * Customizes the span based on the request that will be sent to the server.
    */
   public void request(DubboAdapter adapter, RpcContext context, SpanCustomizer customizer) {
+    //1. 生成 spanName
     customizer.name(spanName(adapter, context));
+    //2. 获取 remote address
     String path = adapter.getRemoteAddress(context);
+    // 3. 将 remote address 打上 tag
     if (path != null) customizer.tag("provider.address", path);
   }
 
@@ -25,7 +28,7 @@ public class DubboClientParser extends AbstractParser {
     if (!rpcResult.hasException()) {
       customizer.tag("consumer.result", "true");
     } else {
-      customizer.tag("consumer.exception", rpcResult.getException().getMessage());
+      customizer.tag("error", rpcResult.getException().getMessage());
     }
   }
 

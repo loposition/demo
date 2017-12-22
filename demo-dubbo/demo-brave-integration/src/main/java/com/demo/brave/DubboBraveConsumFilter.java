@@ -29,9 +29,10 @@ public class DubboBraveConsumFilter implements Filter {
   private final TraceContext.Extractor<Map<String, String>> extractor;
 
   public DubboBraveConsumFilter() {
-    Tracing tracing = BeanUtils.getTracing();
+    BeanHolder instance = BeanHolder.getInstance();
+    Tracing tracing = instance.getTracing();
     this.tracer = tracing.tracer();
-    this.handler = BeanUtils.getBean(DubboClientHandler.class);
+    this.handler = instance.getDubboClientHandler();
     this.injector = tracing.propagation().injector(Map::put);
     this.extractor = tracing.propagation().extractor(Map::get);
   }
@@ -39,14 +40,16 @@ public class DubboBraveConsumFilter implements Filter {
 
   @Override
   public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
+    //1. 客户端调用前 span 处理
     Span span = handler.handleSend(injector, extractor);
     Result rpcResult = null;
-    try {
-      tracer.withSpanInScope(span);
+    //2. 将span 植入 current context , ws 不关闭
+    try (Tracer.SpanInScope ws = tracer.withSpanInScope(span)) {
       return rpcResult = invoker.invoke(invocation);
     } catch (RuntimeException | Error e) {
       throw e;
     } finally {
+      // 3. 处理上面的  span
       handler.handleReceive(rpcResult, span);
     }
   }

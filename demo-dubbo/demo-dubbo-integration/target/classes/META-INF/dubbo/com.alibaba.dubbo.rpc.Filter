@@ -1,2 +1,0 @@
-traceProviderFilter=com.demo.dubbo.integration.TraceProviderFilter
-traceConsumerFilter=com.demo.dubbo.integration.TraceConsumerFilter

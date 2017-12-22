@@ -5,6 +5,7 @@ import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.ProviderConfig;
 import com.alibaba.dubbo.config.spring.ReferenceBean;
 import com.alibaba.dubbo.config.spring.ServiceBean;
+import com.demo.brave.DubboBraveContants;
 import com.ysz.demo.DubboConfig;
 import com.ysz.demo.FourService;
 import com.ysz.demo.PropertyConfig;
@@ -27,9 +28,7 @@ import org.springframework.context.annotation.Import;
 @Import({
     PropertyConfig.class,
     DubboConfig.class
-//    ZipkinConfiguration.class
 })
-
 public class TwoConfig {
 
   @Value(value = "${application.name}")
@@ -63,11 +62,16 @@ public class TwoConfig {
 
   @Bean
   public ReferenceBean<FourService> fourService() {
-    return DubboConfig.configReference(FourService.class);
+    ReferenceBean<FourService> ref = DubboConfig.configReference(FourService.class);
+    ref.setFilter(DubboBraveContants.CONSUMER_FILTER);
+    return ref;
   }
 
   @Bean
   public ServiceBean<TwoService> dubboTwoService(TwoService twoService) {
-    return DubboConfig.configService(twoService);
+    ServiceBean<TwoService> ref =
+        DubboConfig.configService(twoService);
+    ref.setFilter(DubboBraveContants.PROVIDER_FILTER);
+    return ref;
   }
 }

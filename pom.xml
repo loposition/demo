@@ -22,6 +22,7 @@
         <module>demo-spring</module>
         <module>demo-websocket</module>
         <module>demo-zipkin</module>
+        <module>demo-log4j2</module>
     </modules>
 
     <repositories>

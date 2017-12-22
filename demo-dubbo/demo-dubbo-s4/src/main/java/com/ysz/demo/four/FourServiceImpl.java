@@ -15,6 +15,9 @@ public class FourServiceImpl implements FourService {
 
   @Override
   public String four() {
+    if (1 == 1) {
+      throw new RuntimeException("这就是异常...");
+    }
     return "resp from four";
   }
 }

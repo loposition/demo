@@ -1,8 +1,11 @@
 package com.ysz.demo.two;
 
+import com.ysz.demo.FourService;
 import com.ysz.demo.TwoService;
 
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <B>描述：</B><br/>
@@ -13,18 +16,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class TwoServiceImpl implements TwoService {
 
-//  @Resource
-//  private FourService fourService;
+  @Resource
+  private FourService fourService;
 
 
   @Override
   public String two() {
     System.err.println("有一次请求:two");
     try {
-      Thread.sleep(1L);
+      Thread.sleep(100L);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    return "Response from 2";
+    return "Response from 2:" + fourService.four();
   }
 }

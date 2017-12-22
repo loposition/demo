@@ -1,1 +1,2 @@
 traceConsumerFilter=com.demo.brave.DubboBraveConsumFilter
+traceProviderFilter=com.demo.brave.DubboBraveProviderFilter

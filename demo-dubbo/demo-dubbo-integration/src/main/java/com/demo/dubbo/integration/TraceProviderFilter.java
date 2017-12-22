@@ -1,5 +1,7 @@
 package com.demo.dubbo.integration;
 
+import com.alibaba.dubbo.common.Constants;
+import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.rpc.Filter;
 import com.alibaba.dubbo.rpc.Invocation;
 import com.alibaba.dubbo.rpc.Invoker;
@@ -26,7 +28,7 @@ import java.util.Map;
  * <B>时间：</B> 2017/12/15 <br/>
  * <B>版本：</B><br/>
  */
-//@Activate(group = {Constants.PROVIDER}, order = -9000)
+@Activate(group = {Constants.PROVIDER}, order = -9000)
 public class TraceProviderFilter implements Filter {
 
   private final Tracer tracer;

@@ -26,7 +26,7 @@ public class DubboServerParser extends AbstractParser {
     if (!rpcResult.hasException()) {
       customizer.tag("provider.result", "true");
     } else {
-      customizer.tag("provider.exception", rpcResult.getException().getMessage());
+      customizer.tag("error", rpcResult.getException().getMessage());
     }
   }
 }

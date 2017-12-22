@@ -2,7 +2,6 @@ package com.ysz.demo.one;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.spring.ReferenceBean;
-import com.demo.brave.BraveDubboConfiguration;
 import com.ysz.demo.DubboConfig;
 import com.ysz.demo.PropertyConfig;
 import com.ysz.demo.TwoService;
@@ -22,7 +21,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @Configuration
 @ComponentScan(basePackages = "com.ysz.demo.one")
-@Import({PropertyConfig.class, DubboConfig.class, BraveDubboConfiguration.class})
+@Import({
+    PropertyConfig.class,
+    DubboConfig.class
+})
 @EnableWebMvc
 public class OneConfig {
   @Value(value = "${application.name}")
